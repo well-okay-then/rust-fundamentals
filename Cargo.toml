@@ -1,0 +1,8 @@
+[package]
+name = "rust-fundamentals"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Your external crates/libraries go here
+
