@@ -3,8 +3,12 @@ use std::io::{self, BufRead};
 fn main() {
     let stdin = io::stdin();
     let mut iter = stdin.lock().lines();
-    let name = iter.next().unwrap().unwrap();
-    let age: i32 = iter.next().unwrap().unwrap().trim().parse().unwrap();
+    let n: i32 = iter.next().unwrap().unwrap().trim().parse().unwrap();
 
-    println!("Hi, {}! You are {} years old.", name, age);
+    match (n % 3 == 0, n % 5 == 0) {
+        (true, true) => println!("FizzBuzz"),
+        (true, false) => println!("Fizz"),
+        (false, true) => println!("Buzz"),
+        (false, false) => println!("{}", n),
+    }
 }
