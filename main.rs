@@ -1,8 +1,10 @@
-use std::io::Read;
+use std::io::{self, BufRead};
 
 fn main() {
-    let mut input = String::new();
-    std::io::stdin().read_to_string(&mut input).unwrap();
+    let stdin = io::stdin();
+    let mut iter = stdin.lock().lines();
+    let name = iter.next().unwrap().unwrap();
+    let age: i32 = iter.next().unwrap().unwrap().trim().parse().unwrap();
 
-    println!("{}", input.to_uppercase());
+    println!("Hi, {}! You are {} years old.", name, age);
 }
