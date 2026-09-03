@@ -1,33 +1,14 @@
-enum Light {
-    Red,
-    Yellow,
-    Green,
-}
-
-fn next(l: Light) -> Light {
-    // match on l
-    match l {
-        Light::Green => Light::Yellow,
-        Light::Yellow => Light::Red,
-        Light::Red => Light::Green,
-    }
-}
-
-fn name(l: &Light) -> &str {
-    match l {
-        Light::Red => "red",
-        Light::Yellow => "yellow",
-        Light::Green => "green",
-    }
+fn parse_int(s: &str) -> Result<i32, String> {
+    // TODO: parse s as an i32 and return Ok(n) when that works.
+    // When it does not, retrurn Err with the message "not a number".
+    s.trim().parse::<i32>().map_err(|_| format!("not a number"))
 }
 
 fn main() {
     let mut input = String::new();
     std::io::stdin().read_line(&mut input).unwrap();
-    let current = match input.trim() {
-        "red" => Light::Red,
-        "yellow" => Light::Yellow,
-        _ => Light::Green,
-    };
-    println!("{}", name(&next(current)));
+    match parse_int(&input) {
+        Ok(n) => println!("ok: {}", n),
+        Err(e) => println!("error: {}", e),
+    }
 }
