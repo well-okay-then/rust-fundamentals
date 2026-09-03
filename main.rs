@@ -1,32 +1,33 @@
-struct Point {
-    x: i32,
-    y: i32,
+enum Light {
+    Red,
+    Yellow,
+    Green,
 }
 
-impl Point {
-    fn distance_sq(&self, other: &Point) -> i32 {
-        let x_sq = (self.x - other.x).pow(2);
-        let y_sq = (self.y - other.y).pow(2);
+fn next(l: Light) -> Light {
+    // match on l
+    match l {
+        Light::Green => Light::Yellow,
+        Light::Yellow => Light::Red,
+        Light::Red => Light::Green,
+    }
+}
 
-        x_sq + y_sq
+fn name(l: &Light) -> &str {
+    match l {
+        Light::Red => "red",
+        Light::Yellow => "yellow",
+        Light::Green => "green",
     }
 }
 
 fn main() {
-    let lines: Vec<i32> = (0..4)
-        .map(|_| {
-            let mut s = String::new();
-            std::io::stdin().read_line(&mut s).unwrap();
-            s.trim().parse().unwrap()
-        })
-        .collect();
-    let a = Point {
-        x: lines[0],
-        y: lines[1],
+    let mut input = String::new();
+    std::io::stdin().read_line(&mut input).unwrap();
+    let current = match input.trim() {
+        "red" => Light::Red,
+        "yellow" => Light::Yellow,
+        _ => Light::Green,
     };
-    let b = Point {
-        x: lines[2],
-        y: lines[3],
-    };
-    println!("{}", a.distance_sq(&b));
+    println!("{}", name(&next(current)));
 }
